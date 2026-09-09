@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>GPS Corrections Options</title>
+<meta name="description" content="Find the right GPS correction subscription and part number by receiver.">
+<meta name="theme-color" content="#1a1c1e">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icons/icon-192.png">
+<link rel="apple-touch-icon" href="./icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="GPS Corrections">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <button class="home-btn" type="button" id="btnHome" aria-label="Start over">
+      <span class="home-mark">GPS</span>
+      <span class="home-text">Corrections Options</span>
+    </button>
+    <input class="search" id="search" type="search" inputmode="search"
+           placeholder="Search part number or product…" autocomplete="off" aria-label="Search">
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="crumbs" id="crumbs" aria-label="Breadcrumb"></nav>
+  <div id="view"></div>
+  <div id="results" hidden></div>
+</main>
+
+<footer class="foot">
+  <p>Reference only — confirm availability and pricing before ordering. Converted from
+     the GPS Corrections Options workbook.</p>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="./data.js"></script>
+<script src="./app.js"></script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
