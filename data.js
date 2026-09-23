@@ -1,5 +1,7 @@
 /* GPS Corrections Options — decision tree
-   Transcribed from GPS_Corrections_Options.xlsm (28 sheets, shape macros mapped to nodes).
+   Transcribed from GPS_Corrections_Options.xlsm (28 drawings, shape macros mapped to nodes).
+   Updated from the revised workbook: added 2-year RTX terms, unlock part numbers,
+   Trimble Store link and the ordering walkthrough video.
 
    TO UPDATE PART NUMBERS: edit the "parts" arrays below and commit. Everyone using the
    hosted page gets the change immediately. Bump CACHE in sw.js at the same time.
@@ -13,8 +15,18 @@
      image     file in img/
      children  ids of the next nodes
      parts     [{term, pn, via}] — via is VMS | Trimble | Raven
+     unlocks   [{what, serials, pns:[{pn, note}]}] — unlock part numbers
+     links     [{label, url, kind}] — kind is 'video' or 'store'
      contact   true for "go see Product Support" dead ends
 */
+
+/* Shared links, referenced by the RTX nodes below. */
+var RTX_LINKS = [
+  {label: 'How to order an RTX subscription from the Trimble store',
+   url: 'https://redheadequipmentca.sharepoint.com/:v:/s/Parts-Precision/IQD_0VIxJKW-S44mnJkg5v9UAbfnzKNW-REeD1wX9OMYZXM?e=kbdgLF',
+   kind: 'video'},
+  {label: 'Trimble Store', url: 'https://store.trimble.com', kind: 'store'}
+];
 
 window.GPS_TREE = {
 
@@ -100,9 +112,11 @@ window.GPS_TREE = {
     question: 'How many years of RangePoint RTX?',
     parts: [
       {term: '1 Year', pn: 'AG88455-10', via: 'Trimble'},
+      {term: '2 Year', pn: 'AG88455-20', via: 'Trimble'},
       {term: '3 Year', pn: 'AG88455-30', via: 'Trimble'},
       {term: '5 Year', pn: 'AG88455-50', via: 'Trimble'}
-    ]
+    ],
+    links: RTX_LINKS
   },
   cp_standard: {
     title: 'CenterPoint RTX Standard', accuracy: '2"',
@@ -110,11 +124,17 @@ window.GPS_TREE = {
     question: 'How many years of CenterPoint RTX Standard?',
     parts: [
       {term: '1 Year', pn: 'AG88416-10', via: 'Trimble'},
+      {term: '2 Year', pn: 'AG88416-20', via: 'Trimble'},
       {term: '3 Year', pn: 'AG88416-30', via: 'Trimble'},
       {term: '5 Year', pn: 'AG88416-50', via: 'Trimble'},
       {term: '1 Year — CenterPoint RTX Farm Plan', pn: '', via: 'Trimble',
        ask: 'See Product Support or Tech Specialist'}
-    ]
+    ],
+    unlocks: [
+      {what: '372 — OmniSTAR unlock', pns: [{pn: 'ZTN87855'}]},
+      {what: '392 — Base to Medium',  pns: [{pn: 'ZTN6551-02'}]}
+    ],
+    links: RTX_LINKS
   },
   cp_fast: {
     title: 'CenterPoint RTX Fast', accuracy: '2"',
@@ -122,11 +142,18 @@ window.GPS_TREE = {
     question: 'How many years of CenterPoint RTX Fast?',
     parts: [
       {term: '1 Year', pn: 'AG88213-10', via: 'Trimble'},
+      {term: '2 Year', pn: 'AG88213-20', via: 'Trimble'},
       {term: '3 Year', pn: 'AG88213-30', via: 'Trimble'},
       {term: '5 Year', pn: 'AG88213-50', via: 'Trimble'},
       {term: '1 Year — CenterPoint RTX Farm Plan', pn: '', via: 'Trimble',
        ask: 'See Product Support or Tech Specialist'}
-    ]
+    ],
+    unlocks: [
+      {what: '372 — OmniSTAR to High unlock', pns: [{pn: 'ZTN87858'}]},
+      {what: '392 — Medium to High',          pns: [{pn: 'ZTN6551-03'}]},
+      {what: '392 — Base to High',            pns: [{pn: 'ZTN6551-04'}]}
+    ],
+    links: RTX_LINKS
   },
   trimble_rtk: {
     title: 'RTK', accuracy: '1"', contact: true,
@@ -156,6 +183,15 @@ window.GPS_TREE = {
       {term: '2 Year', pn: '51668574', via: 'Raven'},
       {term: '3 Year', pn: '51668576', via: 'Raven'},
       {term: '5 Year', pn: '90498991', via: 'Raven'}
+    ],
+    unlocks: [
+      {what: 'Base SBAS + GS-Lite to SBAS + GS-Lite + GS-Pro (Base to Medium)',
+       serials: 'BMWM or BMXT',
+       pns: [{pn: '077-0180-256U'}, {pn: '077-0180-259U'}]},
+      {what: 'Base to Satellite GS-Pro (Base to Medium)',
+       serials: 'BMGX or DMGX',
+       pns: [{pn: '92262876', note: 'subs from 077-0180-346U'},
+             {pn: '92195847', note: 'subs from 077-0180-334U'}]}
     ]
   },
   rs1_satgs: {
@@ -166,6 +202,9 @@ window.GPS_TREE = {
       {term: '1 Year', pn: '48084211', via: 'Raven'},
       {term: '2 Year', pn: '48084212', via: 'Raven'},
       {term: '3 Year', pn: '48084213', via: 'Raven'}
+    ],
+    unlocks: [
+      {what: 'Base to Satellite GS', serials: 'BFN', pns: [{pn: '077-0180-177U'}]}
     ]
   },
   rs1_gslite: {
@@ -210,7 +249,10 @@ window.GPS_TREE = {
   r600s: {
     title: '600S', image: '600s.png',
     question: 'What accuracy?',
-    children: ['r600s_gslite', 'r600s_satgs']
+    children: ['r600s_gslite', 'r600s_satgs'],
+    unlocks: [
+      {what: '600S Base to Satellite GS', serials: 'BFN', pns: [{pn: '077-0180-222U'}]}
+    ]
   },
   r600s_gslite: {
     title: 'GS-Lite', accuracy: '6-8"',
@@ -230,6 +272,9 @@ window.GPS_TREE = {
       {term: '1 Year', pn: '48084211', via: 'Raven'},
       {term: '2 Year', pn: '48084212', via: 'Raven'},
       {term: '3 Year', pn: '48084213', via: 'Raven'}
+    ],
+    unlocks: [
+      {what: '600S Base to Satellite GS', serials: 'BFN', pns: [{pn: '077-0180-222U'}]}
     ]
   },
 
@@ -247,6 +292,10 @@ window.GPS_TREE = {
       {term: '2 Year', pn: '51668574', via: 'Raven'},
       {term: '3 Year', pn: '51668576', via: 'Raven'},
       {term: '5 Year', pn: '90498991', via: 'Raven'}
+    ],
+    unlocks: [
+      {what: '700S SBAS + GS-Lite to SBAS + GS-Lite + GS-Pro (Base to Medium)',
+       serials: 'BMHR', pns: [{pn: '077-0180-264U'}]}
     ]
   },
   r700s_gslite: {

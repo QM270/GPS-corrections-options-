@@ -1,5 +1,5 @@
 /* Offline cache. Bump CACHE whenever you edit any file, especially data.js. */
-const CACHE = 'gps-corrections-v1';
+const CACHE = 'gps-corrections-v2';
 const ASSETS = [
   './', './index.html', './styles.css', './app.js', './data.js', './manifest.webmanifest',
   './icons/icon-192.png', './icons/icon-512.png',

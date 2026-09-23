@@ -22,6 +22,10 @@ for (const [id, n] of Object.entries(T)) {
     id, pn: p.pn, term: p.term, via: p.via, ask: p.ask,
     label: [n.title, n.sub].filter(Boolean).join(' ')
   }));
+  (n.unlocks || []).forEach(u => (u.pns || []).forEach(x => INDEX.push({
+    id, pn: x.pn, term: 'Unlock — ' + u.what, via: 'Unlock', ask: x.note,
+    label: [n.title, n.sub].filter(Boolean).join(' ')
+  })));
 }
 
 let state = 'home';
@@ -90,6 +94,31 @@ function renderNode(){
         </span>
         ${p.pn ? `<button class="copy" type="button" data-copy="${esc(p.pn)}">Copy</button>` : ''}
       </div>`).join('') + `</div>`;
+  }
+
+  if (n.unlocks) {
+    h += `<h2 class="sec-head">Unlocks</h2><div class="unlocks">` + n.unlocks.map(u => `
+      <div class="unlock">
+        <p class="unlock-what">${esc(u.what)}</p>
+        ${u.serials ? `<p class="unlock-serial">Serial numbers starting <b>${esc(u.serials)}</b></p>` : ''}
+        <div class="unlock-pns">${(u.pns || []).map(x => `
+          <span class="unlock-pn">
+            <code>${esc(x.pn)}</code>
+            ${x.note ? `<span class="unlock-note">${esc(x.note)}</span>` : ''}
+            <button class="copy copy-sm" type="button" data-copy="${esc(x.pn)}">Copy</button>
+          </span>`).join('')}</div>
+      </div>`).join('') + `</div>`;
+  }
+
+  if (n.links) {
+    h += `<div class="links">` + n.links.map(l => `
+      <a class="link-card" href="${esc(l.url)}" target="_blank" rel="noopener">
+        <span class="link-icon" aria-hidden="true">${l.kind === 'video' ? '▶' : '↗'}</span>
+        <span class="link-body">
+          <span class="link-label">${esc(l.label)}</span>
+          <span class="link-host">${l.kind === 'video' ? 'Opens in Teams / SharePoint' : 'store.trimble.com'}</span>
+        </span>
+      </a>`).join('') + `</div>`;
   }
 
   if (n.contact && !n.parts) {
