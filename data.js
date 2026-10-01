@@ -42,7 +42,12 @@ window.GPS_TREE = {
     sub: 'Vector / Cygnus — found on most connected machines',
     image: 'novatel.png',
     question: 'What accuracy?',
-    children: ['afs_plm1', 'afs_plm2', 'afs_plm3', 'afs_plm3b', 'novatel_rtk']
+    children: ['afs_plm1', 'afs_plm2', 'afs_plm3', 'afs_plm3b', 'novatel_rtk'],
+    links: [
+      {label: 'PLM/AFS ordering instructions and set up in the IntelliView 12 / Pro 1200',
+       url: 'https://redheadequipmentca.sharepoint.com/:v:/s/Parts-Precision/IQDwv6NcbwS2Sr7wNfvRw1rfAaLPtss5gXyGLehxb3mkOxQ?e=90z5OH',
+       kind: 'video'}
+    ]
   },
   afs_plm1: {
     title: 'AFS / PLM 1', accuracy: '6-8"',
@@ -104,7 +109,11 @@ window.GPS_TREE = {
     sub: 'RTX capable',
     image: 'trimble-372.png',
     question: 'What level of accuracy do they want?',
-    children: ['rangepoint', 'cp_standard', 'cp_fast', 'trimble_rtk']
+    children: ['rangepoint', 'cp_standard', 'cp_fast', 'trimble_rtk'],
+    links: [
+      {label: 'Loading a RangePoint / CenterPoint RTX subscription into a 392 receiver',
+       url: 'https://youtu.be/M-Wp_yjFuKg', kind: 'video'}
+    ]
   },
   rangepoint: {
     title: 'RangePoint RTX', accuracy: '6-8"',

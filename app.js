@@ -111,12 +111,17 @@ function renderNode(){
   }
 
   if (n.links) {
+    const hostLabel = u => {
+      if (/youtu\.?be/.test(u)) return 'Opens on YouTube';
+      if (/sharepoint/.test(u)) return 'Opens in Teams / SharePoint — company login';
+      try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return 'Opens in a new tab'; }
+    };
     h += `<div class="links">` + n.links.map(l => `
       <a class="link-card" href="${esc(l.url)}" target="_blank" rel="noopener">
         <span class="link-icon" aria-hidden="true">${l.kind === 'video' ? '▶' : '↗'}</span>
         <span class="link-body">
           <span class="link-label">${esc(l.label)}</span>
-          <span class="link-host">${l.kind === 'video' ? 'Opens in Teams / SharePoint' : 'store.trimble.com'}</span>
+          <span class="link-host">${esc(hostLabel(l.url))}</span>
         </span>
       </a>`).join('') + `</div>`;
   }
